@@ -4,7 +4,7 @@
         "title": "Picador 1",
         "description": "Picador de 3 piezas",
         "price": 3300,
-        "category": "categoria 2",
+        "category": "2",
         "stock": 7,
         "code": 123,
         "status": true
@@ -14,7 +14,7 @@
         "title": "Picador 2",
         "description": "Picador de 2 piezas",
         "price": 20000,
-        "category": "categoria 2",
+        "category": "2",
         "stock": 15,
         "code": 123,
         "status": true
@@ -24,7 +24,7 @@
         "title": "Picador 3",
         "description": "Picador de 3 piezas",
         "price": 698,
-        "category": "categoria 2",
+        "category": "2",
         "stock": 3,
         "code": 123,
         "status": true
@@ -34,7 +34,7 @@
         "title": "Picador 4",
         "description": "Picador de 4 piezas",
         "price": 1330,
-        "category": "categoria 2",
+        "category": "2",
         "stock": 25,
         "code": 123,
         "status": true
@@ -44,7 +44,7 @@
         "title": "Picador 5",
         "description": "Picador de 2 piezas",
         "price": 1699,
-        "category": "categoria 2",
+        "category": "2",
         "stock": 12,
         "code": 123,
         "status": true
@@ -54,7 +54,7 @@
         "title": "Picador 6",
         "description": "Picador de 3 piezas",
         "price": 1800,
-        "category": "categoria 2",
+        "category": "2",
         "stock": 30,
         "code": 123,
         "status": true
@@ -64,7 +64,7 @@
         "title": "Picador 7",
         "description": "Picador de 4 piezas",
         "price": 4500,
-        "category": "categoria 2",
+        "category": "2",
         "stock": 2,
         "code": 123,
         "status": true
@@ -74,7 +74,7 @@
         "title": "Picador 8",
         "description": "Picador de 6 piezas",
         "price": 26900,
-        "category": "categoria 2",
+        "category": "2",
         "stock": 1,
         "code": 123,
         "status": true
@@ -84,7 +84,7 @@
         "title": "Picador 9",
         "description": "Picador de 2 piezas",
         "price": 2200,
-        "category": "categoria 2",
+        "category": "2",
         "stock": 8,
         "code": 123,
         "status": true
@@ -94,7 +94,7 @@
         "title": "Picador 10",
         "description": "Picador de 4 piezas",
         "price": 10000,
-        "category": "categoria 2",
+        "category": "2",
         "stock": 10,
         "code": 123,
         "status": true
