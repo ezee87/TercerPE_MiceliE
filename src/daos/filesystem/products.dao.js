@@ -1,10 +1,10 @@
 import fs from 'fs';
-import { __dirname } from '../path.js';
+import { __dirname } from '../../path.js';
 
 export default class ProductManager {
 
  constructor() {
-    this.pathFile = __dirname + "/fs/products.json";
+    this.pathFile = 'products.json';
   }
 
 async getMaxId() {

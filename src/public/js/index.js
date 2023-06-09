@@ -4,9 +4,38 @@ const form = document.getElementById("form");
 const inputTitle = document.getElementById("title");
 const inputPrice = document.getElementById("price");
 const products = document.getElementById("products");
-
 const inputStock = document.getElementById("stock");
 const inputDescription = document.getElementById("description");
+const message = document.getElementById("message");
+const btn = document.getElementById("send");
+const output = document.getElementById("output");
+const actions = document.getElementById("actions");
+
+btn.addEventListener("click", () => {
+  socket.emit("chat:message", {
+    username,
+    message: message.value,
+  });
+  message.value = "";
+});
+
+socket.on("messages", (data) => {
+  actions.innerHTML = "";
+  const chatRender = data
+    .map((msg) => {
+      return `<p><strong>${msg.username}: ${msg.message}<strong></p>`;
+    })
+    .join(" ");
+  output.innerHTML = chatRender;
+});
+
+message.addEventListener("keypress", () => {
+  socket.emit("chat:typing", username);
+});
+
+socket.on("chat:typing", (data) => {
+  actions.innerHTML = `<p> ${data} is writting a message... </p>`;
+});
 
 form.onsubmit = (e) => {
   e.preventDefault();

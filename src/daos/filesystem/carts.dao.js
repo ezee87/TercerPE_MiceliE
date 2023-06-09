@@ -1,8 +1,8 @@
 import fs from 'fs';
-import { __dirname } from '../path.js';
+import { __dirname } from '../../path.js';
 
-const pathFile = __dirname + '/fs/carts.json';
-const pathProductManager = __dirname + '/fs/products.json'
+const pathFile = 'carts.json';
+const pathProductManager = 'products.json'
 
 export const getMaxId = async () => {
   let maxId = 0;
