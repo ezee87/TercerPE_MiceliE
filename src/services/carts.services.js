@@ -1,26 +1,29 @@
-import CartsDaoMongoDB from "../daos/mongodb/carts.dao.js";
-const cartDao = new CartsDaoMongoDB();
+import CartDaoMongoDB from "../daos/mongodb/carts.dao.js";
+const cartDao = new CartDaoMongoDB();
+import fs from "fs";
+import { __dirname } from "../path.js";
 
-export const getAllService = async () => {
+export const getCartByIdService = async (id) => {
   try {
-    const docs = await cartDao.getAllCarts();
-    return docs;
+    const item = await cartDao.getCartById(id);
+    if (!item) throw new Error("Cart not found!");
+    else return item;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const getByIdService = async (id) => {
+export const getAllCartsService = async () => {
   try {
-    const doc = await cartDao.getCartById(id);
-    if (!doc) throw new Error("Cart not found");
-    else return doc;
+    const item = await cartDao.getAllCarts();
+    if (!item) throw new Error("Cart not found!");
+    else return item;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const createService = async (obj) => {
+export const createCartService = async (obj) => {
   try {
     const newCart = await cartDao.createCart(obj);
     if (!newCart) throw new Error("Validation Error!");
@@ -30,24 +33,24 @@ export const createService = async (obj) => {
   }
 };
 
-export const updateService = async (id, obj) => {
+export const updateCartService = async (id, obj) => {
   try {
-    const doc = await cartDao.getCartById(id);
-    if (!doc) {
-      throw new Error("Cart not found");
+    let item = await cartDao.getCartById(id);
+    if (!item) {
+      throw new Error("Cart not found!");
     } else {
-      const cartUpd = await cartDao.updateCart(id, obj);
-      return cartUpd;
+      const cartUpdated = await cartDao.updateCart(id, obj);
+      return cartUpdated;
     }
   } catch (error) {
     console.log(error);
   }
 };
 
-export const deleteService = async (id) => {
+export const deleteCartService = async (id) => {
   try {
-    const cartDel = await cartDao.deleteCart(id);
-    return cartDel;
+    const cartDeleted = await cartDao.deleteCart(id);
+    return cartDeleted;
   } catch (error) {
     console.log(error);
   }

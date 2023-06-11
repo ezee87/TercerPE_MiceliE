@@ -1,19 +1,18 @@
-import { CartsModel } from "./models/carts.model.js";
+import { CartModel } from "./models/carts.model.js";
 
-export default class CartsDaoMongoDB {
+export default class CartDaoMongoDB {
   async getAllCarts() {
     try {
-      const response = await CartsModel.find({});
+      const response = await CartModel.find({});
       return response;
     } catch (error) {
       console.log(error);
     }
   }
-
-  async getById(id) {
+  async getCartById(id) {
     try {
-      const response = await CartsModel.findById(id);
-      return response;
+      const response = await CartModel.findById(id);
+      return response.populate("products");
     } catch (error) {
       console.log(error);
     }
@@ -21,7 +20,7 @@ export default class CartsDaoMongoDB {
 
   async createCart(obj) {
     try {
-      const response = await CartsModel.create(obj);
+      const response = await CartModel.create(obj);
       return response;
     } catch (error) {
       console.log(error);
@@ -30,7 +29,7 @@ export default class CartsDaoMongoDB {
 
   async updateCart(id, obj) {
     try {
-      await CartsModel.updateOne({ _id: id }, obj);
+      await CartModel.updateOne({ _id: id }, obj);
       return obj;
     } catch (error) {
       console.log(error);
@@ -39,7 +38,7 @@ export default class CartsDaoMongoDB {
 
   async deleteCart(id) {
     try {
-      const response = await CartsModel.findByIdAndDelete(id);
+      const response = await CartModel.findByIdAndDelete(id);
       return response;
     } catch (error) {
       console.log(error);

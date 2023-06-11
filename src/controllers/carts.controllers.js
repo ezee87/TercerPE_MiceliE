@@ -1,63 +1,60 @@
-import {
-    getAllService,
-    getByIdService,
-    createService,
-    updateService,
-    deleteService,
-  } from "../services/carts.services.js";
-  
-  export const getAllController = async (req, res, next) => {
-    try {
-      const docs = await getAllService();
-      res.json(docs);
-    } catch (error) {
-      next(error);
-    }
-  };
-  
-  export const getByIdController = async (req, res, next) => {
-    try {
-      const { id } = req.params;
-      const doc = await getByIdService(id);
-      res.json(doc);
-    } catch (error) {
-      next(error);
-    }
-  };
-  
-  export const createController = async (req, res, next) => {
-    try {
-      const { products} = req.body;
-      const newDoc = await createService({
-       products,
-      });
-      res.json(newDoc);
-    } catch (error) {
-      next(error);
-    }
-  };
-  
-  export const updateController = async (req, res, next) => {
-    try {
-      const { id } = req.params;
-      const { product, cantidadProduct} = req.body;
-      await getByIdService(id);
-      const docUpd = await updateService(id, {
-        product,
-        cantidadProduct
-      });
-      res.json(docUpd);
-    } catch (error) {
-      next(error);
-    }
-  };
-  
-  export const deleteController = async (req, res, next) => {
-    try {
-      const { id } = req.params;
-      await deleteService(id);
-      res.json({ message: "Cart deleted successfully!" });
-    } catch (error) {
-      next(error);
-    }
-  };
+import * as service from "../services/carts.services.js";
+
+export const getCartByIdCtr = async (req, res, next) => {
+  try {
+    const { cartId } = req.params;
+    const item = await service.getCartByIdService(cartId);
+    if (!item) throw new Error("cart not found!");
+
+    res.json(item);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getAllCartsCtr = async (req, res, next) => {
+  try {
+    const items = await service.getAllCartsService();
+    res.json(items);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const createCartCtr = async (req, res, next) => {
+  try {
+    const cart = { ...req.body };
+    const newCart = await service.createCartService(cart);
+    if (!newCart) throw new Error("Validation Error!");
+    else res.json(newCart);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateCartController = async (req, res, next) => {
+  try {
+    const { cartId } = req.params;
+    const { product } = req.body;
+    await service.getCartByIdService(cartId);
+    const docUpd = await service.updateCartService(cartId, {
+      product,
+    });
+    res.json(docUpd);
+  } catch (error) {
+    next(error);
+  }
+};
+export const deleteCartCtr = async (req, res, next) => {
+  try {
+    const { cartId } = req.params;
+
+    await service.deleteCartService(cartId);
+
+    res.json({
+      msg: "cart deleted",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
