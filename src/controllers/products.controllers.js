@@ -1,14 +1,14 @@
 import * as service from "../services/products.services.js";
 
-export const getAllProductsCtr = async (req, res, next) => {
+/* export const getAllProductsCtr = async (req, res, next) => {
   try {
     const { page, limit } = req.query;
     const response = await service.getAllProductsService(page, limit);
     // res.json(response);
-    const next = response.hasNextPage
+    const nextPage = response.hasNextPage
       ? `http://localhost:8080/products?page=${response.nextPage}`
       : null;
-    const prev = response.hasPrevPage
+    const prevPage = response.hasPrevPage
       ? `http://localhost:8080/products?page=${response.prevPage}`
       : null;
     res.json({
@@ -16,10 +16,23 @@ export const getAllProductsCtr = async (req, res, next) => {
       info: {
         count: response.totalDocs,
         pages: response.totalPages,
-        next,
-        prev,
+        next: nextPage,
+        prev: prevPage,
       },
     });
+  } catch (error) {
+    next(error);
+  }
+};
+ */
+
+export const getAllProductsCtr = async (req, res, next) => {
+  try {
+    const { page, limit } = req.query;
+    const response = await service.getAllProductsService(page, limit);
+    const products = response.docs; // Obtener los productos de la respuesta
+
+    return products; // Devolver los productos en lugar de enviar una respuesta JSON
   } catch (error) {
     next(error);
   }

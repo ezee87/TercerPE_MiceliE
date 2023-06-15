@@ -1,36 +1,53 @@
-import { Router } from "express";
-import ProductManager from "../daos/filesystem/products.dao.js";
-import { __dirname } from '../path.js';
+import { Router } from 'express';
+import { getAllProductsCtr } from "../controllers/products.controllers.js";
+import UserDao from '../daos/mongodb/user.dao.js'
+const userDao = new UserDao()
 
-const productManager = new ProductManager(__dirname + "/daos/filesystem/products.json");
 const router = Router();
 
-router.get("/index", async (req, res) => {
-    const products = await productManager.getAllProducts();
+router.get('/', (req, res) => {
+  res.render('login');
+});
+
+router.get('/register', (req, res) => {
+  res.render('register');
+});
+
+router.get('/error-register', (req, res) => {
+  res.render('errorRegister');
+});
+
+router.get('/error-login', (req, res) => {
+  res.render('errorLogin');
+});
+
+/* router.get("/profile", async (req, res, next) => {
+  try {
+    const products = await getAllProductsCtr(req, res, next);
+    console.log(products);
+    res.render('profile', { products });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Error occurred');
+  }
+}); */
+
+router.get("/profile", async (req, res, next) => {
+  try {
+    const products = await getAllProductsCtr(req, res, next); // Obtener los productos
+
+    const productsData = {
+      length: products.length,
+      products: products
+    };
+
+    res.render('profile', { products: productsData });// Renderizar la vista "profile" con los productos
     console.log(products)
-    res.render("index", { products: products });
-  });
-
-router.get("/realtimeproducts", (req, res) => {
-  res.render("realTimeProducts");
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Error occurred');
+  }
 });
 
-router.get("/", (req, res) => {
-  res.render("chat");
-});
-
-import {
-  getAllController,
-  getByIdController,
-  createController,
-  updateController,
-  deleteController,
-} from "../controllers/messages.controllers.js";
-
-router.get("/", getAllController);
-router.get(":id", getByIdController);
-router.post("/", createController);
-router.put("/:id", updateController);
-router.delete("/:id", deleteController);
 
 export default router;

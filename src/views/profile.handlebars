@@ -1,0 +1,20 @@
+<main>
+  <h2 class="title">Perfil</h2>
+  {{#if products.length}}
+    <ul>
+      {{#each products}}
+        <li>
+          <strong>Producto:</strong> {{this.name}}
+          <br>
+          <strong>Descripción:</strong> {{this.description}}
+          <br>
+          <strong>Precio:</strong> ${{this.price}}
+          <br>
+          <strong>Stock:</strong> {{this.stock}}
+        </li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <p class="no__products">No tenemos productos</p>
+  {{/if}}
+</main>
