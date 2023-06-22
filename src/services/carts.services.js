@@ -1,7 +1,7 @@
 import CartDaoMongoDB from "../daos/mongodb/carts.dao.js";
 const cartDao = new CartDaoMongoDB();
 import fs from "fs";
-import { __dirname } from "../path.js";
+import { __dirname } from "../utils.js";
 
 export const getCartByIdService = async (id) => {
   try {

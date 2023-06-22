@@ -1,10 +1,12 @@
 import { Router } from 'express'
 import UserDao from '../daos/mongodb/user.dao.js'
-const userDao = new UserDao()
+import passport from 'passport';
+import { registerResponse, loginResponse, githubResponse } from '../controllers/users.controllers.js';
 
+const userDao = new UserDao()
 const router = Router()
 
-router.post('/register', async (req, res) => {
+/* router.post('/register', async (req, res) => {
   try {
     const newUser = await userDao.createUser(req.body)
     if(newUser) {
@@ -30,7 +32,14 @@ router.post('/login', async (req, res) => {
     } catch (error) {
       console.log(error);
     }
-})
+}) */
 
+router.post('/register', passport.authenticate('register'), registerResponse);
+
+router.post('/login', passport.authenticate('login'), loginResponse);
+
+router.get('/register-github', passport.authenticate('github', { scope: [ 'user:email' ] }));
+
+router.get('/profile-github', passport.authenticate('github', { scope: [ 'user:email' ] }), githubResponse);
 
 export default router

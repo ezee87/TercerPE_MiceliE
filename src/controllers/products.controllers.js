@@ -32,7 +32,7 @@ export const getAllProductsCtr = async (req, res, next) => {
     const response = await service.getAllProductsService(page, limit);
     const products = response.docs; // Obtener los productos de la respuesta
 
-    return products; // Devolver los productos en lugar de enviar una respuesta JSON
+    return products;
   } catch (error) {
     next(error);
   }

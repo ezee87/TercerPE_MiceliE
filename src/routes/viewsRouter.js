@@ -21,33 +21,16 @@ router.get('/error-login', (req, res) => {
   res.render('errorLogin');
 });
 
-/* router.get("/profile", async (req, res, next) => {
-  try {
-    const products = await getAllProductsCtr(req, res, next);
-    console.log(products);
-    res.render('profile', { products });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send('Error occurred');
-  }
-}); */
-
 router.get("/profile", async (req, res, next) => {
   try {
     const products = await getAllProductsCtr(req, res, next); // Obtener los productos
 
-    const productsData = {
-      length: products.length,
-      products: products
-    };
-
-    res.render('profile', { products: productsData });// Renderizar la vista "profile" con los productos
+    res.render('profile', { products }); // Pasar directamente el array de productos
     console.log(products)
   } catch (error) {
     console.log(error);
-    res.status(500).send('Error occurred');
+    res.status(500).send('Error hola');
   }
 });
-
 
 export default router;
