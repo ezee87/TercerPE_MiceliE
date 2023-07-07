@@ -6,17 +6,15 @@ import mongoStore from 'connect-mongo'
 import morgan from 'morgan';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { __dirname } from './utils.js';
-import productsRouter from './routes/productsRouter.js'
-import cartRouter from './routes/cartRouter.js'
-import viewsRouter from './routes/viewsRouter.js'
 import { Server } from 'socket.io';
 import handlebars from 'express-handlebars';
 import ProductManager from "./daos/mongodb/products.dao.js";
 import MessagesManager from "./daos/filesystem/messages.dao.js";
 import passport from 'passport';
+import routerApi from './routes/index.js';
 import './passport/local.js';
 import './passport/github.js';
-import usersRouter from './routes/users.router.js'
+import './passport/jwt.js';
 
 const productManager = new ProductManager(__dirname + "/daos/filesystem/products.json");
 const messagesManager = new MessagesManager(__dirname + "/daos/filesystem/messages.json");
@@ -53,10 +51,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/products', productsRouter);
-app.use('/carts', cartRouter);
-app.use('/users',usersRouter)
-app.use('/views',viewsRouter)
+app.use('/api', routerApi);
 
 const httpServer = app.listen(8080, () => {
   console.log("🚀 Server listening on port 8080");

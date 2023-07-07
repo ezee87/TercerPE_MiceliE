@@ -9,6 +9,10 @@ router.get('/', (req, res) => {
   res.render('login');
 });
 
+router.get('/local', (req, res) => {
+  res.render('local');
+});
+
 router.get('/register', (req, res) => {
   res.render('register');
 });
@@ -31,6 +35,10 @@ router.get("/profile", async (req, res, next) => {
     console.log(error);
     res.status(500).send('Error hola');
   }
+});
+
+router.get('/jwt', (req, res) => {
+  res.render('jwt')
 });
 
 export default router;

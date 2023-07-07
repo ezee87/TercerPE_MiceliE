@@ -1,45 +1,43 @@
 import { Router } from 'express'
 import UserDao from '../daos/mongodb/user.dao.js'
+import { checkAuth } from '../jwt/auth.js';
+import { registerResponse, loginResponse, loginFront, githubResponse, register, login, privateRoute } from '../controllers/users.controllers.js';
 import passport from 'passport';
-import { registerResponse, loginResponse, githubResponse } from '../controllers/users.controllers.js';
 
 const userDao = new UserDao()
 const router = Router()
 
-/* router.post('/register', async (req, res) => {
-  try {
-    const newUser = await userDao.createUser(req.body)
-    if(newUser) {
-        res.redirect('/views')
-    } else {
-        res.redirect('/views/error-register')
-    }
-  } catch (error) {
-    console.log(error);
-  }
-})
-router.post('/login', async (req, res) => {
-    try {
-        const { email, password } = req.body;
-        const user = await userDao.loginUser(req.body);
-        if(user) {
-            req.session.email = email;
-            req.session.password = password;
-            res.redirect('/views/profile');
-        } else {
-            res.redirect('/views/error-login');
-        }
-    } catch (error) {
-      console.log(error);
-    }
-}) */
+router.post("/register", register);
 
-router.post('/register', passport.authenticate('register'), registerResponse);
+router.post("/login", login);
 
-router.post('/login', passport.authenticate('login'), loginResponse);
+router.get("/private", checkAuth, privateRoute);
+
+router.post("/loginfront", loginFront);
+
+router.post('/register-local', passport.authenticate('register'), registerResponse);
+
+router.post('/login-local', passport.authenticate('login'), loginResponse);
+
+router.get('/private2', checkAuth, (req, res)=>{
+  const { first_name, last_name, email, role } = req.user;
+  res.json({
+    status: 'success',
+    userData: {
+      first_name, 
+      last_name, 
+      email, 
+      role
+    }
+  })
+});
 
 router.get('/register-github', passport.authenticate('github', { scope: [ 'user:email' ] }));
 
 router.get('/profile-github', passport.authenticate('github', { scope: [ 'user:email' ] }), githubResponse);
+
+router.get('/current', passport.authenticate('jwt'),  (req, res) => {
+  res.send(req.user);
+});
 
 export default router

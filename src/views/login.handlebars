@@ -1,10 +1,8 @@
-<h1>LOGIN</h1>
-<form action='/users/login' method='post'>
-  Email: <input type='email' name='email' id='email' />
-  Password: <input type='password' name='password' id='password' />
-  <input type='submit' value='INGRESAR' />
-</form>
+<h2>LOGIN</h2>
+<h5>Elegi el metodo para iniciar sesion</h5>
+<button onclick="location.href='/api/local'">Local</button>
+<button onclick="location.href='/api/users/register-github'">GITHUB</button>
+<button onclick="location.href='/api/jwt'">JWT</button>
 
 <h2>USUARIO NUEVO?</h2>
-<button onclick="location.href='/views/register'">Ir a registro</button>
-<button onclick="location.href='/users/register-github'">Iniciar sesion con GITHUB</button>
+<button onclick="location.href='/api/register'">Ir a registro</button>
