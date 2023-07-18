@@ -12,6 +12,7 @@ import ProductManager from "./daos/mongodb/products.dao.js";
 import MessagesManager from "./daos/filesystem/messages.dao.js";
 import passport from 'passport';
 import routerApi from './routes/index.js';
+import config from './config.js';
 import './passport/local.js';
 import './passport/github.js';
 import './passport/jwt.js';
@@ -53,8 +54,10 @@ app.use(passport.session());
 
 app.use('/api', routerApi);
 
-const httpServer = app.listen(8080, () => {
-  console.log("🚀 Server listening on port 8080");
+const PORT = config.PORT;
+
+const httpServer = app.listen(PORT, () => {
+  console.log(`🚀 Server listening on port ${PORT}`);
 });
 
 const socketServer = new Server(httpServer);

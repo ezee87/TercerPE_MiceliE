@@ -1,11 +1,31 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
+import config from '../config.js'
 
-const connectionString =
-  "mongodb+srv://ezequielM:admin@cluster0.rbgchkc.mongodb.net/ecommerce?retryWrites=true&w=majority";
+let MONGO_URL = '';
 
-mongodb: try {
-  await mongoose.connect(connectionString);
-  console.log("Conectado a la base de datos de MongoDB");
+switch (config.NODE_ENV) {
+    case 'dev':
+        MONGO_URL = config.MONGO_LOCAL;
+        console.log('db local');
+        break;
+    case 'qa':
+        MONGO_URL = config.MONGO_QA;
+        console.log('db qa');
+        break;
+    case 'prod':
+        MONGO_URL = config.MONGO_PROD;
+        console.log('db prod');
+        
+        break;
+    default:
+        MONGO_URL = config.MONGO_PROD;
+        console.log('db prod');
+        break;
+}
+
+try {
+    await mongoose.connect(MONGO_URL);
+    console.log('Conectado a la base de datos de MongoDB');
 } catch (error) {
-  console.log(error);
+    console.log(error);
 }

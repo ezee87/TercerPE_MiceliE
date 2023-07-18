@@ -1,3 +1,4 @@
+
 const socketClient = io();
 
 const form = document.getElementById("form");
