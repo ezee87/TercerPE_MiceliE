@@ -58,6 +58,7 @@ const PORT = config.PORT;
 
 const httpServer = app.listen(PORT, () => {
   console.log(`🚀 Server listening on port ${PORT}`);
+  console.log(process.env.PORT)
 });
 
 const socketServer = new Server(httpServer);
