@@ -1,7 +1,7 @@
 import factory from "../factory.js";
 const { productManager } = factory;
-import ProductRegisterDTO from "../../dtos/product/product.register.dto.js";
-import ProductResponseDTO from "../../dtos/product/product.response.dto.js";
+import ProductRegisterDTO from "../../dtos/products/products.register.js";
+import ProductResponseDTO from "../../dtos/products/products.response.js";
 
 export default class ProductRepository {
   constructor() {

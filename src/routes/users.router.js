@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import UserDao from '../daos/mongodb/user.dao.js'
+import UserDao from '../persistence/daos/mongodb/dao/user.dao.js'
 import { checkAuth } from '../jwt/auth.js';
 import { registerResponse, loginResponse, loginFront, githubResponse, register, login, privateRoute } from '../controllers/users.controllers.js';
 import passport from 'passport';

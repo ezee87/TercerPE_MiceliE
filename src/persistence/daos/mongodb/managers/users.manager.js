@@ -1,6 +1,6 @@
-import MongoDao from "../dao/mongo.dao";
-import { UserModel } from "../models/user.model.js";
-import { createHash, isValidPassword } from "../../../utils.js";
+import MongoDao from "../dao/mongo.dao.js";
+import { userModel } from "../models/user.model.js";
+import { createHash, isValidPassword } from "../../../../utils.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
@@ -9,7 +9,7 @@ const SECRET_KEY = process.env.SECRET_KEY_JWT;
 
 export default class UserManagerMongo extends MongoDao {
   constructor() {
-    super(UserModel);
+    super(userModel);
   }
 
   #generateToken(user) {

@@ -7,10 +7,10 @@ import {
   deleteCartCtr,
 } from "../controllers/carts.controllers.js";
 
-import { ControllerTicket } from "../controllers/ticket.controller.js";
+import { ControllerTicket } from "../controllers/ticket.controllers.js";
 const ticketController = new ControllerTicket();
 
-import ProductController from "../controllers/product.controllers.js";
+import ProductController from "../controllers/products.controllers.js";
 const productController = new ProductController();
 
 const router = Router();

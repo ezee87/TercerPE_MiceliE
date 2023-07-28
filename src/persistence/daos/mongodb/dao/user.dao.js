@@ -1,6 +1,6 @@
-import { userModel } from './models/user.model.js'
+import { userModel } from '../models/user.model.js'
 
-import { createHash, isValidPassword } from '../../utils.js';
+import { createHash, isValidPassword } from '../../../../utils.js';
 
 export default class UserDao {
   async createUser(user) {

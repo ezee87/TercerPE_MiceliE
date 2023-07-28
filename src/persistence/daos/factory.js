@@ -11,7 +11,7 @@ let productManager;
 let cartManager;
 let ticketManger;
 let persistence = process.argv[2];
-// let persistence = process.env.PERSISTENCE;
+// let persistence = process.env.PERSISTENCEnpmnp;
 
 switch (persistence) {
   case "file":

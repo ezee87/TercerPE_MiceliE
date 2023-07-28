@@ -11,9 +11,9 @@ router.get("/:id", controller.getById);
 
 router.get("/dto/:id", controller.getProdById);
 
-router.get("/filtrar", controller.filtrarPorCategorias);
+/* router.get("/filtrar", controller.filtrarPorCategorias);
 
-router.get("/ordenar", controller.ordenarPorPrecios);
+router.get("/ordenar", controller.ordenarPorPrecios); */
 
 router.post("/", isAdmin, controller.create);
 
@@ -21,7 +21,7 @@ router.post("/dto", controller.createProd);
 
 router.post("/:id/add/:prodId", controller.addProductToCartCtr);
 
-router.delete("/:id/del/:prodId", controller.delProductCartController);
+/* router.delete("/:id/del/:prodId", controller.delProductCartController); */
 
 router.put("/:id", isAdmin, controller.update);
 
