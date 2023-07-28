@@ -13,6 +13,7 @@ import MessagesManager from "./daos/filesystem/messages.dao.js";
 import passport from 'passport';
 import routerApi from './routes/index.js';
 import config from './config.js';
+import "./persistence/daos/mongodb/connection.js";
 import './passport/local.js';
 import './passport/github.js';
 import './passport/jwt.js';

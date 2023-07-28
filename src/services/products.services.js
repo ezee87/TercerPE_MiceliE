@@ -1,10 +1,42 @@
-import ProductsDaoMongoDB from "../daos/mongodb/products.dao.js";
-const productsDao = new ProductsDaoMongoDB();
+import Services from "./class.services.js";
+import factory from "../persistence/daos/factory.js";
+const { productManager } = factory;
+import ProductRepository from "../persistence/daos/repository/products.repository.js";
+import CartRepository from "../persistence/daos/repository/carts.repository.js";
+
+const prodRepository = new ProductRepository();
+const cartRepository = new CartRepository();
+
+export default class ProductService extends Services {
+  constructor() {
+    super(productManager);
+  }
+
+  getProdById = async (id) => {
+    try {
+      const item = await prodRepository.getProdById(id);
+      if (!item) return false;
+      else return item;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  createProd = async (obj) => {
+    try {
+      const newItem = await prodRepository.createProd(obj);
+      if (!newItem) return false;
+      else return newItem;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
 
 export const addProductToCartService = async (cartId, prodId) => {
   try {
-    const exists = await productsDao.getProductById(prodId);
-    const newProduct = await productsDao.addProductToCart(cartId, prodId);
+    const exists = await prodRepository.getProdById(prodId);
+    const newProduct = await cartRepository.addProductToCart(cartId, prodId);
     if (!exists) throw new Error("Product not found!");
     else return newProduct;
   } catch (error) {
@@ -17,26 +49,6 @@ export const getAllProductsService = async (page, limit) => {
     const item = await productsDao.getAllProducts(page, limit);
     if (!item) throw new Error("Cart not found!");
     else return item;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const getByIdProduct = async (id) => {
-  try {
-    const item = await productsDao.getProductById(id);
-    if (!item) throw new Error("Pet not found!");
-    else return item;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const createProductService = async (obj) => {
-  try {
-    const newProduct = await productsDao.createProduct(obj);
-    if (!newProduct) throw new Error("Validation Error!");
-    else return newProduct;
   } catch (error) {
     console.log(error);
   }

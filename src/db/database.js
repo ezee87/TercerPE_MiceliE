@@ -25,7 +25,6 @@ switch (config.NODE_ENV) {
 
 try {
     await mongoose.connect(MONGO_URL);
-    console.log('Conectado a la base de datos de MongoDB');
 } catch (error) {
     console.log(error);
 }

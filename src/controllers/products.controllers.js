@@ -1,4 +1,56 @@
-import * as service from "../services/products.services.js";
+import Controllers from "./class.controllers.js";
+import ProductService, {
+  addProductToCartService,
+} from "../services/products.services.js";
+import { createResponse } from "../utils.js";
+
+const productService = new ProductService();
+
+export default class ProductController extends Controllers {
+  constructor() {
+    super(productService);
+  }
+
+  getProdById = async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const item = await this.service.getProdById(id);
+      if (!item)
+        createResponse(res, 404, {
+          method: "getById",
+          error: "Item not found!",
+        });
+      else createResponse(res, 200, item);
+    } catch (error) {
+      next(error.message);
+    }
+  };
+
+  createProd = async (req, res, next) => {
+    try {
+      const newItem = await this.service.createProd(req.body);
+      if (!newItem)
+        createResponse(res, 404, {
+          method: "create",
+          error: "Validation error!",
+        });
+      else createResponse(res, 200, newItem);
+    } catch (error) {
+      next(error.message);
+    }
+  };
+  
+  addProductToCartCtr = async (req, res, next) => {
+    try {
+      const { cartId } = req.params;
+      const { prodId } = req.params;
+      const newProduct = await addProductToCartService(cartId, prodId);
+      res.json(newProduct);
+    } catch (error) {
+      next(error);
+    }
+  };
+}
 
 /* export const getAllProductsCtr = async (req, res, next) => {
   try {
@@ -33,40 +85,6 @@ export const getAllProductsCtr = async (req, res, next) => {
     const products = response.docs; // Obtener los productos de la respuesta
 
     return products;
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const addProductToCartCtr = async (req, res, next) => {
-  try {
-    const { cartId } = req.params;
-    const { prodId } = req.params;
-    const newProduct = await service.addProductToCartService(cartId, prodId);
-    res.json(newProduct);
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const getByIdProduct = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const item = await service.getByIdProduct(id);
-    if (!item) throw new Error("Pet not found!");
-
-    res.json(item);
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const createProductCtr = async (req, res, next) => {
-  try {
-    const prod = { ...req.body };
-    const newProduct = await service.createProductService(prod);
-    if (!newProduct) throw new Error("Validation error");
-    else res.json(newProduct);
   } catch (error) {
     next(error);
   }

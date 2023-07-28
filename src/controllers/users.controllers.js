@@ -1,4 +1,4 @@
-import UserDao from "../daos/mongodb/user.dao.js";
+import UserDao from "../persistence/daos/mongodb/dao/user.dao.js";
 import { generateToken } from "../jwt/auth.js";
 const userDao = new UserDao();
 
